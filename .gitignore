@@ -7,3 +7,5 @@ coverage/
 .env
 config/*
 config
+config/
+/config
