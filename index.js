@@ -4,6 +4,7 @@ const parser = require('body-parser')
 const events = require('./routes/api/events')
 const places = require('./routes/api/places')
 const caterings = require('./routes/api/caterings')
+const users = require('./routes/api/users')
 
 const db = require('./config/keys').mongoURI
 mongoose
@@ -37,6 +38,7 @@ app.get('/', (req,res) => {
 app.use('/api/events', events)
 app.use('/api/places', places)
 app.use('/api/caterings', caterings)
+app.use('/api/users', users)
 
 app.use((req,res) =>
 res.status(404).send(`<h1>Can not find what you're looking for</h1>`))
