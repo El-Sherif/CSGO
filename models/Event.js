@@ -44,17 +44,14 @@ const EventSchema = new Schema({
             },
             items: [
                 {
-                    type: {
-                        itemName: {
-                            type: String,
-                            required: true
-                        },
-                        itemAmount: {
-                            type: Number,
-                            required: true
-                        }
+                    itemName: {
+                        type: String,
+                        required: true
                     },
-                    required: true
+                    itemAmount: {
+                        type: Number,
+                        required: true
+                    }
                 }
             ]
         },
