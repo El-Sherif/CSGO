@@ -5,7 +5,4 @@ coverage/*
 coverage/
 /coverage
 .env
-config/*
 config
-config/
-/config
