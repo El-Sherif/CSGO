@@ -42,18 +42,21 @@ const EventSchema = new Schema({
                 ref: "Catering",
                 required: true
             },
-            items: [
-                {
-                    itemName: {
-                        type: String,
-                        required: true
-                    },
-                    itemAmount: {
-                        type: Number,
-                        required: true
+            items: {
+                type: [
+                    {
+                        itemName: {
+                            type: String,
+                            required: true
+                        },
+                        itemAmount: {
+                            type: Number,
+                            required: true
+                        }
                     }
-                }
-            ]
+                ],
+                required: true
+            }
         },
         required: true
     }
