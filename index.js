@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const parser = require('body-parser')
-
+const users = require('./routes/api/users')
 
 const db = require('./config/keys').mongoURI
 mongoose
@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 app.get('/', (req,res) => {
         res.send(`<h1>CS GO</h1>`)
 })
+app.use('/api/users', users)
 
 app.use((req,res) =>
 res.status(404).send(`<h1>Can not find what you're looking for</h1>`))
