@@ -5,3 +5,4 @@ coverage/*
 coverage/
 /coverage
 .env
+config/keys_dev.js
