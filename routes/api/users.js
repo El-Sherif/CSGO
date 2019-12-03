@@ -53,6 +53,7 @@ router.post('/forgetMyPassword', async (req, res) => {
     res.json({ msg: 'Valid' })
   } catch (error) {
     console.log(error)
+    res.json({error: error})
   }
 })
 
@@ -69,65 +70,105 @@ router.post('/resetMyPassword', async (req, res) => {
     }
   } catch (error) {
     console.log(error)
+    res.json({error: error})
   }
 })
 
 router.get('/', async (req, res) => {
-  const users = await User.find()
-  res.json({ data: users })
+  try {
+    const users = await User.find()
+    res.json({ data: users })
+  }
+  catch(error) {
+    console.log(error)
+    res.json({error: error})
+  }
 })
 
 router.post('/', async (req, res) => {
   try {
     const newUser = await User.create(req.body)
-    res.json({ msg: 'User was created successfully', data: newUser })
+    if (newUser) {
+      res.json({ msg: 'User was created successfully', data: newUser })
+    }
+    else {
+      res.json({error: "Couldn't create new user"})
+    }
   }
   catch (error) {
     console.log(error)
+    res.json({error: error})
   }
 })
 
 router.put('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id)
-    if (!user) return res.status(404).send({ error: 'User does not exist' })
-    const data = req.body
-    if (data.password) {
-      const salt = bcrypt.genSaltSync(10)
-      const hashedPassword = bcrypt.hashSync(data.password, salt)
-      data.password = hashedPassword
+    const id = req.params.id;
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      const user = await User.findById(id)
+      if (!user) {
+        return res.status(404).send({ error: 'User does not exist' })
+      }
+      const data = req.body
+      if (data.password) {
+        const salt = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(data.password, salt)
+        data.password = hashedPassword
+      }
+      const updatedUser = await User.findByIdAndUpdate({ _id: id }, data, { new: true })
+      res.json({ msg: 'User updated successfully' })
     }
-    const updatedUser = await User.findByIdAndUpdate({ _id: req.params.id }, data, { new: true })
-    res.json({ msg: 'User updated successfully' })
+    else {
+      return res.status(400).json({ error: "not valid user id" })
+    }
   }
   catch (error) {
     console.log(error)
+    res.json({error: error})
   }
 })
 
 router.delete('/:id', async (req, res) => {
   try {
     const id = req.params.id
-    const deletedUser = await User.findByIdAndRemove(id)
-    res.json({ msg: 'User was deleted successfully', data: deletedUser })
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      const deletedUser = await User.findByIdAndRemove(id)
+      if (deletedUser) {
+        res.json({ msg: 'User was deleted successfully', data: deletedUser })
+      }
+      else {
+        res.status(404).json({ msg: "User is not found" })
+      }
+    }
+    else {
+      return res.status(400).json({ error: "not valid user id" })
+    }
   }
   catch (error) {
     // We will be handling the error later
     console.log(error)
+    res.json({error: error})
   }
 })
 
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    const u = await User.findById(id);
-    if (u)
-      return res.json({ data: u });
-    else
-      return res.send({ msg: "User is not found" });
+  try {
+    const id = req.params.id;
+    if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      const u = await User.findById(id);
+      if (u)
+        return res.json({ data: u });
+      else
+        return res.status(404).send({ msg: "User is not found" });
+    }
+    else {
+      return res.status(400).send({ error: "not valid user id" });
+    }
   }
-  else
-    return res.send({ error: "not valid user id" });
+  catch (error) {
+    console.log(error)
+    res.json({error: error})
+  }
 })
 
 router.post('/populate/5650', async (req, res) => {
@@ -224,6 +265,7 @@ router.post('/populate/5650', async (req, res) => {
   }
   catch (error) {
     console.log(error)
+    res.json({error: error})
   }
 })
 
@@ -292,6 +334,7 @@ router.get('/verify/:id', async (req, res) => {
   }
   catch (e) {
     console.log(e)
+    res.json({error: e})
   }
 })
 
@@ -314,6 +357,7 @@ router.post('/login', async (req, res) => {
     else return res.status(400).send({ password: 'Wrong password', msg: "wrong password" });
   } catch (e) {
     console.log(e)
+    res.json({error: e})
   }
 });
 
