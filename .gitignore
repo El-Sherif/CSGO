@@ -5,3 +5,7 @@ coverage/*
 coverage/
 /coverage
 .env
+config/keys.js
+config/keys_dev.js
+config/keys_prod.js
+config/passport.js
