@@ -103,7 +103,7 @@ export default class Homepage extends Component {
               <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
               <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
             </Nav>
-            <Button varient="outline-warning">New Event</Button>
+            <Button href="/newEvent" varient="warning" style={{color: "yellow", borderColor: "yellow"}}>New Event</Button>
           </Navbar>
         </div>
 
