@@ -23,21 +23,6 @@ export default class Homepage extends Component {
     this.displayEvents()
   }
 
-  componentDidMount() {
-    this.updateWindowDimensions()
-    window.addEventListener('resize', this.updateWindowDimensions)
-  }
-  
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions)
-  }
-  
-  updateWindowDimensions() {
-    this.state.width = window.innerWidth
-    this.state.height = window.innerHeight
-    this.setState({...this.state})
-  }
-
   displayEvents = () => {
     this.state.displaying = "events"
     axios.get("http://localhost:5000/api/events/")
