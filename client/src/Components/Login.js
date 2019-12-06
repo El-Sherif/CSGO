@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-
-
+import Test from './Test'
 class Login extends Component {
 
   state = {
@@ -31,12 +30,13 @@ class Login extends Component {
 
     }
     catch(error){
-      console.log(error);
+      alert("Wrong Email or Password");
     }
   };
   render() {
     if (this.state.loggedIn) {
-      return <Redirect to="/" />;
+      return <Test></Test>
+      
     }
     return (
     <div>
