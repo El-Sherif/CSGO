@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "../styles/Login.css";
 import axios from "axios";
+import parseJwt from "../helpers/decryptAuthToken";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
@@ -15,8 +16,18 @@ export default function Login(props) {
 
     event.preventDefault();
     const body={email:email,password:password};
-    const user = await axios.post(`http://localhost:5000/api/users/login`,body);
-    console.log("herer");
+    try{
+      const user = await axios.post(`http://localhost:5000/api/users/login`,body);
+      if(user){
+        localStorage.setItem("jwtToken", user.data.data);
+       // let id=await parseJwt(localStorage.jwtToken).id;
+      }
+
+    }
+    catch(error){
+      
+    }
+    
   }
 
   return (
