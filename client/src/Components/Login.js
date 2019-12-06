@@ -1,59 +1,73 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import "../styles/Login.css";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
-import parseJwt from "../helpers/decryptAuthToken";
 
-export default function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
+class Login extends Component {
+
+  state = {
+    email: "",
+    password: "",
+    loggedIn: false,
+    
+  };
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  };
+   validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
-
-  async function handleSubmit(event) {
-
-    event.preventDefault();
-    const body={email:email,password:password};
+  handleSubmit = async () => {
+    const body={email:this.state.email,password:this.state.password};
     try{
       const user = await axios.post(`http://localhost:5000/api/users/login`,body);
       if(user){
         localStorage.setItem("jwtToken", user.data.data);
-       // let id=await parseJwt(localStorage.jwtToken).id;
+        await this.setState({ loggedIn: true });
       }
 
     }
     catch(error){
-      
+      console.log(error);
     }
-    
-  }
-
-  return (
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <FormLabel>Email</FormLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
-          <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+  };
+  render() {
+    if (this.state.loggedIn) {
+      return <Redirect to="/" />;
+    }
+    return (
+    <div>
+    <input
+    type="email"
+    id="email"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "Email"    }
+    autoComplete="username"
+  />
+  <br />
+  <br />
+  <input
+    type="password"
+    id="password"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "password"    }
+  />
+  <Button block bsSize="large" disabled={!this.validateForm()}  onClick={this.handleSubmit}
+type="submit">
           Login
         </Button>
-      </form>
-    </div>
-  );
+
+  </div>
+  
+    );
+
+  }
+    
+
 }
+export default Login;
