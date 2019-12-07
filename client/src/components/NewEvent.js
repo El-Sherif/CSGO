@@ -154,8 +154,9 @@ export default class Homepage extends Component {
     myEvent.Ticket_price = this.state.price
     
     axios.post("http://localhost:5000/api/events", myEvent)
-      .then(this.setState({...this.state, submitted: true}))
-      .catch(err => console.log(err))
+      .then(res => this.setState({...this.state, submitted: true,
+      submissionError: res.data.err ? res.data.err : res.data.msg}))
+      .catch(err => this.setState({...this.state, submitted: true, submissionError: err}))
   }
 
   header() {
@@ -202,8 +203,11 @@ export default class Homepage extends Component {
       return (
         <div>
           {this.header()}
-          <Alert variant="success" style={{margin: 20}}>
-            Your event has been created successfully
+          <Alert variant={this.state.submitionError ? "danger" : "success"} style={{margin: 20}}>
+            {this.state.submissionError
+              ? `Error: ${this.state.submissionError}`
+              : "Your event has been created successfully"
+            }
           </Alert>
         </div>
       )
