@@ -9,7 +9,6 @@ export default class Homepage extends Component {
     this.displayEvents = this.displayEvents.bind(this)
     this.displayPlaces = this.displayPlaces.bind(this)
     this.displayCaterings = this.displayCaterings.bind(this)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
 
     this.state = {
       id: props.id,
@@ -81,10 +80,10 @@ export default class Homepage extends Component {
 
         <div>
           <Navbar bg="primary" variant="dark">
-            <Navbar.Brand href="#home">Event Planner</Navbar.Brand>
+            <Navbar.Brand href="/">Event Planner</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Nav className="mr-auto">
-              <Nav.Link onClick={this.displayEvents}>Events</Nav.Link>
+              {/* <Nav.Link onClick={this.displayEvents}>Events</Nav.Link> */}
               <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
               <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
             </Nav>
@@ -97,7 +96,7 @@ export default class Homepage extends Component {
             ? !this.state.events || !this.state.events[0]
               ? <Alert variant="secondary">No events available</Alert>
               : <>
-                <h3 style={{color: "blue", margin: 20}}>Events</h3>
+                <h3 style={{color: "blue", margin: 20}}>My Events</h3>
                 <CardDeck style={{margin: 20}}>{
                 this.state.events
                 .map((val, idx) =>
