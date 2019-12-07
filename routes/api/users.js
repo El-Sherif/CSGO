@@ -273,11 +273,11 @@ router.post('/register', async (req, res) => {
   try {
     const usere = await User.findOne({ email: req.body.email })
     if (usere) {
-      return res.status(400).json({ error: 'Email already exists', msg: "Email already exists" })
+      return res/* .status(400) */.json({ error: 'Email already exists', msg: "Email already exists" })
     }
-    const userp = await User.findOne({ email: req.body.phone })
+    const userp = await User.findOne({ phone: req.body.phone })
     if (userp) {
-      return res.status(400).json({ error: 'Phone already exists', msg: "Phone already exists" })
+      return res/* .status(400) */.json({ error: 'Phone already exists', msg: "Phone already exists" })
     }
     const salt = bcrypt.genSaltSync(10)
     const hashedPassword = bcrypt.hashSync(req.body.password, salt)
@@ -285,7 +285,7 @@ router.post('/register', async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
-      gender: req.body.male,
+      gender: req.body.gender,
       phone: req.body.phone,
       age: req.body.age,
       balance: req.body.balance

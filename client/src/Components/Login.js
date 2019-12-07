@@ -24,8 +24,11 @@ class Login extends Component {
     try{
       const user = await axios.post(`http://localhost:5000/api/users/login`,body);
       if(user){
-        localStorage.setItem("jwtToken", user.data.data);
+        let token=user.data.data;
+        localStorage.setItem("jwtToken", token);
+        axios.defaults.headers.common['Authorization'] = token
         await this.setState({ loggedIn: true });
+
       }
 
     }

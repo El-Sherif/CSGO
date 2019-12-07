@@ -1,85 +1,182 @@
-import React, { useState } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import "../styles/Login.css";
+import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 import axios from "axios";
-
-export default function Register(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
-  const [gender, setGender] = useState("");
-  const [phone, setPhone] = useState("");
-  const [age, setAge] = useState("");
-
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
-
-  async function handleSubmit(event) {
-
-    event.preventDefault();
-    const body={email:email,password:password};
-    const user = await axios.post(`http://localhost:5000/api/users/login`,body);
-    console.log("herer");
-  }
-
-  return (
-    <div className="Register">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <FormLabel>Email</FormLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
-          <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <FormGroup controlId="gender" bsSize="large">
-          <FormLabel>Gender</FormLabel>
-          <FormControl
-            value={gender}
-            onChange={e => setGender(e.target.value)}
-            type="gender"
-          />
-        </FormGroup>
-        <FormGroup controlId="confirmPassword" bsSize="large">
-          <FormLabel>confirmPassword</FormLabel>
-          <FormControl
-            value={confirmPassword}
-            onChange={e => setconfirmPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <FormGroup controlId="phone" bsSize="large">
-          <FormLabel>phone</FormLabel>
-          <FormControl
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-            type="phone"
-            />
-            </FormGroup>
-           <FormGroup controlId="age" bsSize="large">
-          <FormLabel>age</FormLabel>
-          <FormControl
-            value={age}
-            onChange={e => setAge(e.target.value)}
-            type="age"
-          />
-                      </FormGroup>
-
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Login
-        </Button>
-      </form>
-    </div>
-  );
+import Test from './Test'
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 }
+function validateNumber(num){
+  return num.length>0 && !isNaN(num);
+}
+class Register extends Component {
+
+  state = {
+    email: "",
+    password: "",
+    confirmPassword:"",
+    name:"",
+    gender: "",
+    phone:"",
+    age:"",
+    done:false
+    
+  };
+  handleChange = event => {
+    this.setState({
+      [event.target.id]: event.target.value
+    });
+  };
+  
+  validateRequest(req){
+    let ret="ok";
+    console.log(req.password+" "+req.confirmPassword);
+    if(!validateEmail(req.email)){
+     ret="Please enter a valid mail";
+    }
+    else if(req.password.length<8)
+    ret="Password has to be atleast 8 characters long";
+    else if(req.password!==req.confirmPassword)
+    ret="The repeated password doesn't match the first one"
+    else if(req.name.length==0)
+    ret="Please enter your name";
+    else if(!validateNumber(req.phone))
+    ret="Phone Number contains only digits and cannot be empty";
+    else if(!validateNumber(req.age))
+    ret="Age contains only digits and cannot be empty";
+
+
+    return {msg:ret};
+  }
+  handleSubmit = async () => {
+    if(document.getElementById("male").checked)
+    await this.setState({gender:'Male'});
+    else if(document.getElementById("female").checked)
+    await this.setState({gender:'Female'});
+    else
+    {
+      alert("Please choose your gender");
+      return;
+
+    }
+    const body={email:this.state.email,password:this.state.password
+    ,balance:0,name:this.state.name,age:this.state.age,phone:this.state.phone,confirmPassword:this.state.confirmPassword,gender:'Male'};
+    let valid=this.validateRequest(body);
+    if(valid.msg=='ok')
+    {
+
+    
+    try{
+      const user = await axios.post(`http://localhost:5000/api/users/register`,body);
+      if(user.data.error){
+        alert(user.data.error);
+        return;
+      }
+      if(user){
+        console.log(user.data);
+        await this.setState({ done: true });
+        alert("You have succesfully registered, please check your email to verify your account");
+      }
+
+    }
+    catch(error){
+      alert("Something went wrong, please try again");
+      console.log(error);
+    }
+  }
+  else  
+   alert(valid .msg);
+
+  };
+   handleGender(event){
+     let id=event.target.id;
+     if(id=='male'){
+      document.getElementById("female").checked = false;
+     }
+     else
+     document.getElementById("male").checked = false;
+
+  }
+render() {
+    // if (this.state.done) {
+    //   return <Test></Test>
+      
+    // }
+    return (
+    <div>
+    <input
+    type="email"
+    id="email"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "Email"    }
+    autoComplete="username"
+  />
+  <br />
+  <br />
+  <input
+    type="password"
+    id="password"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "password"    }
+  />
+   <br />
+  <br />
+  <input
+    type="text"
+    id="name"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "name"    }
+  />
+   <br />
+  <br />
+  <input
+    type="password"
+    id="confirmPassword"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "confirmPassword"    }
+  />
+   <br />
+  <br />
+  <input
+    type="text"
+    id="phone"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "phone"    }
+  />
+  <br />
+  <br />
+  <input
+    type="text"
+    id="age"
+    onChange={this.handleChange}
+    className="form-control"
+    placeholder={ "age"}
+  />
+  <br />
+  <br />
+  <form>
+  Gender
+
+ Male <input type="radio" id='male' onClick={this.handleGender}/>
+  Female <input type="radio" id='female' onClick={this.handleGender}/>
+
+  </form>
+
+  <Button block bsSize="large"  onClick={this.handleSubmit} type="submit">
+    Register
+  </Button>
+
+  </div>
+  
+    );
+
+  }
+    
+
+}
+export default Register;
