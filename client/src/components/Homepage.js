@@ -9,7 +9,6 @@ export default class Homepage extends Component {
     this.displayEvents = this.displayEvents.bind(this)
     this.displayPlaces = this.displayPlaces.bind(this)
     this.displayCaterings = this.displayCaterings.bind(this)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
 
     this.state = {
       id: props.id,
@@ -88,7 +87,10 @@ export default class Homepage extends Component {
               <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
               <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
             </Nav>
-            <Button href="/newEvent" varient="warning" style={{color: "yellow", borderColor: "yellow"}}>New Event</Button>
+            <Button href="/newEvent" varient="warning"
+              style={{color: "yellow", borderColor: "yellow"}}>
+              New Event
+            </Button>
           </Navbar>
         </div>
 
