@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Navbar, Nav, Alert, Card, ListGroup, ListGroupItem, Button, CardColumns, Row, CardDeck, Modal} from 'react-bootstrap'
+import { Navbar, Nav, Alert, Card, ListGroup, ListGroupItem, Button, CardColumns, Row, CardDeck, Modal } from 'react-bootstrap'
 import axios from 'axios'
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ export default class Homepage extends Component {
     axios.get("http://localhost:5000/api/events/")
       .then((res) => {
         this.state.events = res.data.data ? res.data.data.filter((value, idx) => value.owner === this.state.id) : null
-        this.setState({...this.state})
+        this.setState({ ...this.state })
       })
       .catch(err => console.log(err))
   }
@@ -45,7 +45,7 @@ export default class Homepage extends Component {
     axios.get("http://localhost:5000/api/places/")
       .then((res) => {
         this.state.places = res.data.data
-        this.setState({...this.state})
+        this.setState({ ...this.state })
       })
       .catch(err => console.log(err))
   }
@@ -55,7 +55,7 @@ export default class Homepage extends Component {
     axios.get("http://localhost:5000/api/caterings/")
       .then((res) => {
         this.state.caterings = res.data.data
-        this.setState({...this.state})
+        this.setState({ ...this.state })
       })
       .catch(err => console.log(err))
   }
@@ -71,31 +71,36 @@ export default class Homepage extends Component {
   }
 
   authorized() {
-    return true
+    if (localStorage.getItem('jwtToken')) {
+      return true
+    }
+    else {
+      return false
+    }
   }
 
   deleteEvent(id) {
     axios.delete(`http://localhost:5000/api/events/${id}`)
-    .then(res => {
-      if (res.error)
-        alert(res.error.message)
-      else if (!res.data.data)
+      .then(res => {
+        if (res.error)
+          alert(res.error.message)
+        else if (!res.data.data)
+          alert("Something went wrong while trying to delete the event!\n\nPlease try again later")
+        else
+          this.displayEvents()
+      })
+      .catch(err => {
         alert("Something went wrong while trying to delete the event!\n\nPlease try again later")
-      else
-        this.displayEvents()
-    })
-    .catch(err => {
-      alert("Something went wrong while trying to delete the event!\n\nPlease try again later")
-      console.log(err)
-    })
+        console.log(err)
+      })
   }
 
   closePopup() {
-    this.state.deletePopup = {show: false}
-    this.setState({...this.state})
+    this.state.deletePopup = { show: false }
+    this.setState({ ...this.state })
   }
 
-  render () {
+  render() {
     return (
       <div>
         <header>
@@ -105,36 +110,36 @@ export default class Homepage extends Component {
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"
           />
-          
+
           <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin />
 
           <script
             src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"
             crossorigin
           />
-          
+
           <script
             src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
             crossorigin
           />
-          
+
           <script>var Alert = ReactBootstrap.Alert;</script>
         </header>
 
         {this.authorized()
-        ? <div>
+          ? <div>
             <div>
               <Navbar bg="primary" variant="dark">
                 <Navbar.Brand href="/">Event Planner</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="mr-auto">
-                  <Nav.Link href="/login">Login</Nav.Link>
                   {/* <Nav.Link onClick={this.displayEvents}>Events</Nav.Link> */}
                   <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
                   <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
+                  <Nav.Link href="/login" onClick={() => localStorage.removeItem('jwtToken')}>Logout</Nav.Link>
                 </Nav>
                 <Button href="/newEvent" varient="warning"
-                  style={{color: "yellow", borderColor: "yellow"}}>
+                  style={{ color: "yellow", borderColor: "yellow" }}>
                   New Event
                 </Button>
               </Navbar>
@@ -145,89 +150,89 @@ export default class Homepage extends Component {
                 ? !this.state.events || !this.state.events[0]
                   ? <Alert variant="secondary">No events available</Alert>
                   : <>
-                    <h3 style={{color: "blue", margin: 20}}>My Events</h3>
-                    {this.splitInto(this.state.events, 5).map(arr => 
-                      <Row><CardDeck className="col-md-12" style={{margin: 20}}>
+                    <h3 style={{ color: "blue", margin: 20 }}>My Events</h3>
+                    {this.splitInto(this.state.events, 5).map(arr =>
+                      <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
                         {arr.map(val => (
-                        <Card className="col-md-2" border="primary"> <Card.Body>
-                          <Card.Title>{val.type}</Card.Title>
-                          <Card.Subtitle className="mb-2 text-muted" margin={20}>
-                            from:
-                            <br/>
-                            {new Date(val.time.start_time).toLocaleDateString()}
-                            <br/>
-                            {new Date(val.time.start_time).toLocaleTimeString()}
-                            <br/>
-                            <br/>
-                            to:
-                            <br/>
-                            {new Date(val.time.end_time).toLocaleDateString()}
-                            <br/>
-                            {new Date(val.time.end_time).toLocaleTimeString()}
-                          </Card.Subtitle>
-                          <Card.Text style={{marginTop: 20}}>{val.description}</Card.Text>
-                          <Button
-                            variant="danger"
-                            style={{marginTop: 20}}
-                            onClick={event => {
-                              this.state.deletePopup = {
-                                show: true,
-                                type: val.type,
-                                id: val._id
-                              }
-                              this.setState({...this.state})
-                            }}
-                          >
-                            Delete
+                          <Card className="col-md-2" border="primary"> <Card.Body>
+                            <Card.Title>{val.type}</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted" margin={20}>
+                              from:
+                            <br />
+                              {new Date(val.time.start_time).toLocaleDateString()}
+                              <br />
+                              {new Date(val.time.start_time).toLocaleTimeString()}
+                              <br />
+                              <br />
+                              to:
+                            <br />
+                              {new Date(val.time.end_time).toLocaleDateString()}
+                              <br />
+                              {new Date(val.time.end_time).toLocaleTimeString()}
+                            </Card.Subtitle>
+                            <Card.Text style={{ marginTop: 20 }}>{val.description}</Card.Text>
+                            <Button
+                              variant="danger"
+                              style={{ marginTop: 20 }}
+                              onClick={event => {
+                                this.state.deletePopup = {
+                                  show: true,
+                                  type: val.type,
+                                  id: val._id
+                                }
+                                this.setState({ ...this.state })
+                              }}
+                            >
+                              Delete
                           </Button>
 
-                        </Card.Body> </Card>)
+                          </Card.Body> </Card>)
                         )}
                       </CardDeck></Row>
                     )}
                   </>
 
-              : this.state.displaying === "places"
-                ? !this.state.places || !this.state.places[0]
-                  ? <Alert variant="secondary">No palces available</Alert>
-                  : <>
-                    <h3 style={{color: "blue", margin: 20}}>Places</h3>
-                    {this.splitInto(this.state.places, 5).map(arr => 
-                      <Row><CardDeck className="col-md-12" style={{margin: 20}}>
-                        {arr.map(val => (
-                        <Card className="col-md-2" border="primary"> <Card.Body>
-                          <Card.Title>{val.name}</Card.Title>
-                          <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating} EGP/hour</Card.Subtitle>
-                          <Card.Subtitle className="mb-2 text-muted">{val.pricePerHour} EGP/hour</Card.Subtitle>
-                          <Card.Text>{val.location}</Card.Text>
-                        </Card.Body> </Card>)
+                : this.state.displaying === "places"
+                  ? !this.state.places || !this.state.places[0]
+                    ? <Alert variant="secondary">No palces available</Alert>
+                    : <>
+                      <h3 style={{ color: "blue", margin: 20 }}>Places</h3>
+                      {this.splitInto(this.state.places, 5).map(arr =>
+                        <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
+                          {arr.map(val => (
+                            <Card className="col-md-2" border="primary"> <Card.Body>
+                              <Card.Title>{val.name}</Card.Title>
+                              <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating} EGP/hour</Card.Subtitle>
+                              <Card.Subtitle className="mb-2 text-muted">{val.pricePerHour} EGP/hour</Card.Subtitle>
+                              <Card.Text>{val.location}</Card.Text>
+                            </Card.Body> </Card>)
+                          )}
+                        </CardDeck></Row>
                       )}
-                      </CardDeck></Row>
-                    )}
-                  </>
+                    </>
 
-              : this.state.displaying === "caterings"
-                ? !this.state.caterings || !this.state.caterings[0]
-                  ? <Alert variant="secondary">No caterings available</Alert>
-                  : <>
-                    <h3 style={{color: "blue", margin: 20}}>Caterings</h3>
-                    {this.splitInto(this.state.caterings, 5).map(arr => 
-                      <Row><CardDeck className="col-md-12" style={{margin: 20}}>
-                        {arr.map(val => (
-                        <Card className="col-md-2" border="primary"> <Card.Body>
-                          <Card.Title>{val.name}</Card.Title>
-                          <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating}</Card.Subtitle>
-                          {!val.menu || !val.menu[0]
-                            ? <></>
-                            : <ListGroup className="list-group-flush">
-                                {val.menu.map((item, i) => (<ListGroupItem>{item.item}: {item.price} EGP</ListGroupItem>))}
-                              </ListGroup>}
-                        </Card.Body> </Card>)
-                      )}
-                      </CardDeck></Row>
-                    )}
-                  </>
-                : <></>
+                  : this.state.displaying === "caterings"
+                    ? !this.state.caterings || !this.state.caterings[0]
+                      ? <Alert variant="secondary">No caterings available</Alert>
+                      : <>
+                        <h3 style={{ color: "blue", margin: 20 }}>Caterings</h3>
+                        {this.splitInto(this.state.caterings, 5).map(arr =>
+                          <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
+                            {arr.map(val => (
+                              <Card className="col-md-2" border="primary"> <Card.Body>
+                                <Card.Title>{val.name}</Card.Title>
+                                <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating}</Card.Subtitle>
+                                {!val.menu || !val.menu[0]
+                                  ? <></>
+                                  : <ListGroup className="list-group-flush">
+                                    {val.menu.map((item, i) => (<ListGroupItem>{item.item}: {item.price} EGP</ListGroupItem>))}
+                                  </ListGroup>}
+                              </Card.Body> </Card>)
+                            )}
+                          </CardDeck></Row>
+                        )}
+                      </>
+                    : <></>
               }
             </div>
           </div>
