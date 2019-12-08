@@ -125,11 +125,11 @@ export default class Homepage extends Component {
         ? <div>
             <div>
               <Navbar bg="primary" variant="dark">
-                <Navbar.Brand href="#home">Event Planner</Navbar.Brand>
+                <Navbar.Brand href="/">Event Planner</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="mr-auto">
                   <Nav.Link href="/login">Login</Nav.Link>
-                  <Nav.Link onClick={this.displayEvents}>Events</Nav.Link>
+                  {/* <Nav.Link onClick={this.displayEvents}>Events</Nav.Link> */}
                   <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
                   <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
                 </Nav>
@@ -145,7 +145,7 @@ export default class Homepage extends Component {
                 ? !this.state.events || !this.state.events[0]
                   ? <Alert variant="secondary">No events available</Alert>
                   : <>
-                    <h3 style={{color: "blue", margin: 20}}>Events</h3>
+                    <h3 style={{color: "blue", margin: 20}}>My Events</h3>
                     {this.splitInto(this.state.events, 5).map(arr => 
                       <Row><CardDeck className="col-md-12" style={{margin: 20}}>
                         {arr.map(val => (
