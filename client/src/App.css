@@ -5,7 +5,19 @@
 .App-logo {
   height: 40vmin;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
 
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
