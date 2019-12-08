@@ -51,7 +51,6 @@ export default class Homepage extends Component {
   }
 
   displayCaterings = () => {
-    console.log(arr)
     this.state.displaying = "caterings"
     axios.get("http://localhost:5000/api/caterings/")
       .then((res) => {
@@ -59,7 +58,6 @@ export default class Homepage extends Component {
         this.setState({...this.state})
       })
       .catch(err => console.log(err))
-      let arr = []
   }
 
   splitInto(arr, section) {
@@ -195,7 +193,7 @@ export default class Homepage extends Component {
                   : <>
                     <h3 style={{color: "blue", margin: 20}}>Places</h3>
                     {this.splitInto(this.state.places, 5).map(arr => 
-                      <Row><CardDeck style={{margin: 20}}>
+                      <Row><CardDeck className="col-md-12" style={{margin: 20}}>
                         {arr.map(val => (
                         <Card className="col-md-2" border="primary"> <Card.Body>
                           <Card.Title>{val.name}</Card.Title>
@@ -213,8 +211,8 @@ export default class Homepage extends Component {
                   ? <Alert variant="secondary">No caterings available</Alert>
                   : <>
                     <h3 style={{color: "blue", margin: 20}}>Caterings</h3>
-                    {this.splitInto(this.state.places, 5).map(arr => 
-                      <Row><CardDeck style={{margin: 20}}>
+                    {this.splitInto(this.state.caterings, 5).map(arr => 
+                      <Row><CardDeck className="col-md-12" style={{margin: 20}}>
                         {arr.map(val => (
                         <Card className="col-md-2" border="primary"> <Card.Body>
                           <Card.Title>{val.name}</Card.Title>
