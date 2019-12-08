@@ -70,7 +70,7 @@ class ForgetPassword extends Component {
                 }
             }
             catch (error) {
-                alert("Wrong Email");
+                alert("Error! Please try again later");
             }
         };
     }
