@@ -19,7 +19,7 @@ class ForgetPassword extends Component {
             password: "",
             confirmPassword: "",
             ebox: true,
-            trans:""
+            trans: ""
         };
     }
     toggle() {
@@ -43,7 +43,7 @@ class ForgetPassword extends Component {
             if (Msg.data.msg === 'Valid') {
                 alert("A reset key was sent to your Email. Please enter it below to be able to reset your password");
                 this.setState({ collapse1: true })
-                this.setState({ebox:false})
+                this.setState({ ebox: false })
             }
             else {
                 alert("Wrong Email");
@@ -54,15 +54,15 @@ class ForgetPassword extends Component {
         }
     };
     handleSubmit2 = async () => {
-        if (!(this.state.password === this.state.confirmPassword)) {alert("Password Mismatch.-_- شكلك مش فايق وهتتعبني معاك") }
-                                      
+        if (!(this.state.password === this.state.confirmPassword)) { alert("Password Mismatch.-_- شكلك مش فايق وهتتعبني معاك") }
+
         else {
             const body = { email: this.state.email, password: this.state.password, resetKey: this.state.resetKey };
             try {
                 const Msg = await axios.post(`http://localhost:5000/api/users/resetMyPassword`, body);
                 if (Msg.data.msg === 'Valid') {
                     alert("Your password was changed successfully. -_- بس متتعودش علي كده");
-                    this.setState({trans:'/login'})
+                    this.setState({ trans: '/login' })
                     // return <Redirect to={{ pathname: "/login" }} />
                 }
                 else {
@@ -75,65 +75,68 @@ class ForgetPassword extends Component {
         };
     }
     render() {
-        if (this.state.trans.length >0) {
-            return <Redirect to={{ pathname: this.state.trans }}/>
-           }
+        if (this.state.trans.length > 0) {
+            return <Redirect to={{ pathname: this.state.trans }} />
+        }
+        if (localStorage.getItem('jwtToken')) {
+            return <Redirect to={{ pathname: "/" }} />
+        }
         return (
             <CardDeck>
                 <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
-                    <Button variant='primary' onClick={this.toggle} >Login</Button>
-                    <Collapse isOpen={this.state.collapse}>
-                        <Card.Body>
-                            {/* <Card.Title>Register</Card.Title> */}
+                    <Button disabled={true} variant='primary' onClick={this.toggle} >Forget Password</Button>
+                    {/* <Collapse isOpen={this.state.collapse}> */}
+                    <Card.Body>
+                        {/* <Card.Title>Register</Card.Title> */}
+                        <Label style={{ margin: 20 }}>
+                            Email
+              </Label>
+                        <div class="ui focus input"><Input
+                            type="email"
+                            id="email"
+                            placeholder={"Email"}
+                            onChange={this.handleChange}
+                        /></div>
+                        <br />
+                        <Button variant="primary" disabled={!this.validateForm() || !this.state.ebox} onClick={this.handleSubmit1}
+                            type="submit">I Forgot My Password :(</Button>
+                        <Collapse isOpen={this.state.collapse1}>
                             <Label style={{ margin: 20 }}>
-                                Email
+                                Reset Key
               </Label>
                             <div class="ui focus input"><Input
-                                type="email"
-                                id="email"
-                                placeholder={"Email"}
+                                type="password"
+                                id="resetKey"
+                                placeholder={"Reset Key"}
                                 onChange={this.handleChange}
                             /></div>
                             <br />
-                            <Button variant="primary" disabled={!this.validateForm() || !this.state.ebox} onClick={this.handleSubmit1}
-                                type="submit">I Forgot My Password :(</Button>
-                            <Collapse isOpen={this.state.collapse1}>
-                                <Label style={{ margin: 20 }}>
-                                    Reset Key
+                            <Label style={{ margin: 20 }}>
+                                New Password
               </Label>
-                                <div class="ui focus input"><Input
-                                    type="password"
-                                    id="resetKey"
-                                    placeholder={"Reset Key"}
-                                    onChange={this.handleChange}
-                                /></div>
-                                <br />
-                                <Label style={{ margin: 20 }}>
-                                    New Password
+                            <div class="ui focus input"><Input
+                                type="password"
+                                id="password"
+                                placeholder={"New Password"}
+                                onChange={this.handleChange}
+                            /></div>
+                            <br />
+                            <Label style={{ margin: 20 }}>
+                                Confirm Password
               </Label>
-                                <div class="ui focus input"><Input
-                                    type="password"
-                                    id="password"
-                                    placeholder={"New Password"}
-                                    onChange={this.handleChange}
-                                /></div>
-                                <br />
-                                <Label style={{ margin: 20 }}>
-                                    Confirm Password
-              </Label>
-                                <div class="ui focus input"><Input
-                                    type="password"
-                                    id="confirmPassword"
-                                    placeholder={"Confirm Password"}
-                                    onChange={this.handleChange}
-                                /></div>
-                                <br />
-                                <Button variant="primary" disabled={!this.validateForm1()}
-                                    onClick={this.handleSubmit2}
-                                    type="submit">Reset My Password :(</Button>
-                            </Collapse>
-                        </Card.Body>
-                    </Collapse>
+                            <div class="ui focus input"><Input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder={"Confirm Password"}
+                                onChange={this.handleChange}
+                            /></div>
+                            <br />
+                            <Button variant="primary" disabled={!this.validateForm1()}
+                                onClick={this.handleSubmit2}
+                                type="submit">Reset My Password :(</Button>
+                        </Collapse>
+                    </Card.Body>
+                    {/* </Collapse> */}
                 </Card>
             </CardDeck>
         );

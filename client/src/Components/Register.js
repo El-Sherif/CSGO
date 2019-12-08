@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, CardDeck } from "react-bootstrap";
 import { Label, Input } from 'semantic-ui-react'
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Test from './Test'
 import { Collapse } from 'reactstrap'
@@ -41,7 +42,7 @@ class Register extends Component {
   //   done: false
 
   // };
-  toggle () {
+  toggle() {
     this.setState(state => ({ collapse: !state.collapse }))
   }
   handleChange = event => {
@@ -96,8 +97,8 @@ class Register extends Component {
         }
         if (user) {
           // console.log(user.data);
-          await this.setState({ done: true });
           alert("You have succesfully registered, please check your email to verify your account");
+          await this.setState({ done: true });
         }
 
       }
@@ -120,15 +121,17 @@ class Register extends Component {
 
   }
   render() {
-    // if (this.state.done) {
-    //   return <Test></Test>
-
-    // }
+    if (this.state.done) {
+      return <Redirect to={{ pathname: "/login" }} />
+    }
+    if (localStorage.getItem('jwtToken')) {
+      return <Redirect to={{ pathname: "/" }} />
+    }
     return (
       <CardDeck>
         <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
-        <Button variant='primary' onClick={this.toggle} >Register</Button>
-          <Collapse isOpen={this.state.collapse}>
+          <Button variant='primary' disabled={true} onClick={this.toggle} >Register</Button>
+          {/* <Collapse isOpen={this.state.collapse}> */}
           <Card.Body>
             {/* <Card.Title>Register</Card.Title> */}
             <Label style={{ margin: 20 }}>
@@ -198,80 +201,12 @@ class Register extends Component {
             Female <Input type="radio" id='female' onClick={this.handleGender} />
             <br />
             <Button variant="primary" onClick={this.handleSubmit} type="submit">Register</Button>
+            <Button style={{ margin: 20 }} variant="outline-primary" href="/login"
+              type="submit">Login</Button>
           </Card.Body>
-          </Collapse>
+          {/* </Collapse> */}
         </Card>
       </CardDeck>
-      //       <div>
-      //         <input
-      //           type="email"
-      //           id="email"
-      //           placeholder={"Email"}
-      //           onChange={this.handleChange}
-      //           className="form-control col-md-5"
-      //           autoComplete="username"
-      //         />
-      //         <br />
-      //         <br />
-      //         <input
-      //           type="password"
-      //           id="password"
-      //           onChange={this.handleChange}
-      //           placeholder={"password"}
-      //           className="form-control col-md-5"
-      //         />
-      //         <br />
-      //         <br />
-      //         <input
-      //           type="text"
-      //           id="name"
-      //           placeholder={"name"}
-      //           onChange={this.handleChange}
-      //           className="form-control col-md-5"
-      //         />
-      //         <br />
-      //         <br />
-      //         <input
-      //           type="password"
-      //           id="confirmPassword"
-      //           onChange={this.handleChange}
-      //           placeholder={"confirmPassword"}
-      //           className="form-control col-md-5"
-      //         />
-      //         <br />
-      //         <br />
-      //         <input
-      //           type="text"
-      //           id="phone"
-      //           onChange={this.handleChange}
-      //           placeholder={"phone"}
-      //           className="form-control col-md-5"
-      //         />
-      //         <br />
-      //         <br />
-      //         <input
-      //           type="text"
-      //           id="age"
-      //           onChange={this.handleChange}
-      //           placeholder={"age"}
-      //           className="form-control col-md-5"
-      //         />
-      //         <br />
-      //         <br />
-      //         <form >
-      //           Gender
-
-      //  Male <Input type="radio" id='male' onClick={this.handleGender} />
-      //           Female <Input type="radio" id='female' onClick={this.handleGender} />
-
-      //         </form>
-
-      //         <Button block bsSize="large" onClick={this.handleSubmit} type="submit">
-      //           Register
-      //   </Button>
-
-      //       </div>
-
     );
 
   }
