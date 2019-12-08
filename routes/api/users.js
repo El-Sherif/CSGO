@@ -62,11 +62,11 @@ router.post('/resetMyPassword', async (req, res) => {
     const newPassword = req.body.password
     const user = await User.findOne({ email: req.body.email })
     if (user.resetKey === req.body.resetKey) {
-      await axios.put(`/api/users/${user._id}`, { password: newPassword })
+      await axios.put(`http://localhost:5000/api/users/${user._id}`, { password: newPassword })
       res.json({ msg: 'Valid' })
     }
     else {
-      res.json({ msg: 'Not Valid' })
+      res.json({ msg: 'Wrong Reset Key . Shame on you -_-' })
     }
   } catch (error) {
     console.log(error)
