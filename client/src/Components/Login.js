@@ -77,41 +77,16 @@ class Login extends Component {
               onChange={this.handleChange}
             /></div>
             <br />
-            <Button style={{margin:20}} variant="outline-primary" href="/register"
-            type="submit">Register</Button>
+            <Button style={{ margin: 20 }} variant="outline-primary" href="/register"
+              type="submit">Register</Button>
             <Button variant="primary" disabled={!this.validateForm()} onClick={this.handleSubmit}
               type="submit">Login</Button>
-              <br/>
-              <Button variant="outline-secondary" href="/forgetpassword"
+            <br />
+            <Button variant="outline-secondary" href="/forgetpassword"
               type="submit">forgetpassword</Button>
           </Card.Body>
         </Card>
       </CardDeck>
-      // <div>
-      //   <input
-      //     type="email"
-      //     id="email"
-      //     onChange={this.handleChange}
-      //     className="form-control"
-      //     placeholder={"Email"}
-      //     autoComplete="username"
-      //   />
-      //   <br />
-      //   <br />
-      //   <input
-      //     type="password"
-      //     id="password"
-      //     onChange={this.handleChange}
-      //     className="form-control"
-      //     placeholder={"password"}
-      //   />
-      //   <Button block bsSize="large" disabled={!this.validateForm()} onClick={this.handleSubmit}
-      //     type="submit">
-      //     Login
-      //   </Button>
-
-      // </div>
-
     );
 
   }
