@@ -71,7 +71,7 @@ export default class Homepage extends Component {
   }
 
   authorized() {
-    return false
+    return true
   }
 
   deleteEvent(id) {
@@ -121,7 +121,7 @@ export default class Homepage extends Component {
           <script>var Alert = ReactBootstrap.Alert;</script>
         </header>
 
-        {!this.authorized()
+        {this.authorized()
         ? <div>
             <div>
               <Navbar bg="primary" variant="dark">
