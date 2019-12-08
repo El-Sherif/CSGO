@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Card, CardDeck } from "react-bootstrap";
 import { Label, Input } from 'semantic-ui-react'
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Test from './Test'
 import { Collapse } from 'reactstrap'
@@ -96,8 +97,8 @@ class Register extends Component {
         }
         if (user) {
           // console.log(user.data);
-          await this.setState({ done: true });
           alert("You have succesfully registered, please check your email to verify your account");
+          await this.setState({ done: true });
         }
 
       }
@@ -120,15 +121,17 @@ class Register extends Component {
 
   }
   render() {
-    // if (this.state.done) {
-    //   return <Test></Test>
-
-    // }
+    if (this.state.done) {
+      return <Redirect to={{ pathname: "/login" }}/>
+    }
+    if (localStorage.getItem('jwtToken')) {
+      return <Redirect to={{ pathname: "/" }} />
+    }
     return (
       <CardDeck>
         <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
-        <Button variant='primary' onClick={this.toggle} >Register</Button>
-          <Collapse isOpen={this.state.collapse}>
+        <Button variant='primary' disabled={true} onClick={this.toggle} >Register</Button>
+          {/* <Collapse isOpen={this.state.collapse}> */}
           <Card.Body>
             {/* <Card.Title>Register</Card.Title> */}
             <Label style={{ margin: 20 }}>
@@ -198,8 +201,10 @@ class Register extends Component {
             Female <Input type="radio" id='female' onClick={this.handleGender} />
             <br />
             <Button variant="primary" onClick={this.handleSubmit} type="submit">Register</Button>
+            <Button style={{margin:20}} variant="outline-primary" href="/login"
+              type="submit">Login</Button>
           </Card.Body>
-          </Collapse>
+          {/* </Collapse> */}
         </Card>
       </CardDeck>
       //       <div>
