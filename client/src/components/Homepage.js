@@ -241,6 +241,7 @@ export default class Homepage extends Component {
           onHide={this.closePopup}
           size="sm"
           aria-labelledby="contained-modal-title-vcenter"
+          centered
         >
           <Modal.Header closeButton>
             <Modal.Title>Delete {this.state.deletePopup.type}</Modal.Title>
