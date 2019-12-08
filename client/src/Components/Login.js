@@ -47,40 +47,44 @@ class Login extends Component {
     }
   };
   render() {
-    if (this.state.loggedIn) {
-     return <Redirect to={{ pathname: "/test" }}/>
+    if (localStorage.getItem('jwtToken')) {
+      return <Redirect to={{ pathname: "/" }} />
     }
     return (
       <CardDeck>
         <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
-          <Button variant='primary' onClick={this.toggle} >Login</Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card.Body>
-              {/* <Card.Title>Register</Card.Title> */}
-              <Label style={{ margin: 20 }}>
-                Email
+          <Button variant='primary' disabled={true} onClick={this.toggle} >Login</Button>
+          {/* <Card.Title>Login</Card.Title> */}
+          <Card.Body>
+            {/* <Card.Title>Register</Card.Title> */}
+            <Label style={{ margin: 20 }}>
+              Email
               </Label>
-              <div class="ui focus input"><Input
-                type="email"
-                id="email"
-                placeholder={"Email"}
-                onChange={this.handleChange}
-              /></div>
-              <br />
-              <Label style={{ margin: 20 }}>
-                Password
+            <div class="ui focus input"><Input
+              type="email"
+              id="email"
+              placeholder={"Email"}
+              onChange={this.handleChange}
+            /></div>
+            <br />
+            <Label style={{ margin: 20 }}>
+              Password
               </Label>
-              <div class="ui focus input"><Input
-                type="password"
-                id="password"
-                placeholder={"Password"}
-                onChange={this.handleChange}
-              /></div>
-              <br />
-              <Button variant="primary" disabled={!this.validateForm()} onClick={this.handleSubmit}
-                type="submit">Login</Button>
-            </Card.Body>
-          </Collapse>
+            <div class="ui focus input"><Input
+              type="password"
+              id="password"
+              placeholder={"Password"}
+              onChange={this.handleChange}
+            /></div>
+            <br />
+            <Button style={{margin:20}} variant="outline-primary" href="/register"
+            type="submit">Register</Button>
+            <Button variant="primary" disabled={!this.validateForm()} onClick={this.handleSubmit}
+              type="submit">Login</Button>
+              <br/>
+              <Button variant="outline-secondary" href="/forgetpassword"
+              type="submit">forgetpassword</Button>
+          </Card.Body>
         </Card>
       </CardDeck>
       // <div>
