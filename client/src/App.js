@@ -12,6 +12,7 @@ function App() {
         {/* <header className="App-header">
         </header> */}
         <Route exact path="/newEvent" component={() => <NewEvent id="5dd9eb048c4fe83a9c3c069e" />}/>
+        <Route exact path="/" component={() => <h1>Hello World</h1>}/>
       </div>
     </Router>
   );
