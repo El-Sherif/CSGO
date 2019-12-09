@@ -3,7 +3,6 @@ import { Button, Card, CardDeck } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Label, Input } from 'semantic-ui-react'
 import axios from "axios";
-import Test from './Test'
 import { Collapse } from 'reactstrap'
 import ParticlesBg from "particles-bg";
 

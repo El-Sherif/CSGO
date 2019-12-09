@@ -3,8 +3,6 @@ import { Button, Card, CardDeck } from "react-bootstrap";
 import { Label, Input } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import Test from './Test'
-import { Collapse } from 'reactstrap'
 import ParticlesBg from "particles-bg";
 
 
@@ -33,17 +31,7 @@ class Register extends Component {
       done: false,
     }
   }
-  // state = {
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   name: "",
-  //   gender: "",
-  //   phone: "",
-  //   age: "",
-  //   done: false
 
-  // };
   toggle() {
     this.setState(state => ({ collapse: !state.collapse }))
   }
@@ -100,7 +88,6 @@ class Register extends Component {
           return;
         }
         if (user) {
-          // console.log(user.data);
           alert("You have succesfully registered, please check your email to verify your account");
           await this.setState({ done: true });
         }
