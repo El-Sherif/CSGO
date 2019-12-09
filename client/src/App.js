@@ -1,6 +1,4 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import Homepage from './Components/Homepage';
 import NewEvent from './Components/NewEvent';
 import Login from './Components/Login';
@@ -14,16 +12,6 @@ import './App.css';
 function App() {
   return (
     <Router>
-      {/* <div class='row'>
-      <div class='column'
-        style={{ margin: 20 }}>
-        <Register />
-      </div>
-      <div class='column'
-        style={{ margin: 20 }}>
-        <Login />
-      </div>
-    </div> */}
       <div className="App">
         <Route exact path="/" component={() => (localStorage.getItem('jwtToken')) ?
           <Homepage id={parseJwt(localStorage.jwtToken).id} /> :
@@ -33,7 +21,6 @@ function App() {
           <NewEvent id={parseJwt(localStorage.jwtToken).id} />
           : <NewEvent id="" />} />
         <Route exact path="/register" component={Register} />
-        {/* <Route exact path="/test" component={testt} /> */}
         <Route exact path="/login" component={Login} />
         <Route exact path="/forgetpassword" component={ForgetPassword} />
       </div>
