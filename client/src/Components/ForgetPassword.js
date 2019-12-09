@@ -5,6 +5,7 @@ import { Label, Input } from 'semantic-ui-react'
 import axios from "axios";
 import Test from './Test'
 import { Collapse } from 'reactstrap'
+import ParticlesBg from "particles-bg";
 
 class ForgetPassword extends Component {
     constructor(props) {
@@ -82,63 +83,66 @@ class ForgetPassword extends Component {
             return <Redirect to={{ pathname: "/" }} />
         }
         return (
-            <CardDeck>
-                <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
-                    <Button disabled={true} variant='primary' onClick={this.toggle} >Forget Password</Button>
-                    {/* <Collapse isOpen={this.state.collapse}> */}
-                    <Card.Body>
-                        {/* <Card.Title>Register</Card.Title> */}
-                        <Label style={{ margin: 20 }}>
-                            Email
-              </Label>
-                        <div class="ui focus input"><Input
-                            type="email"
-                            id="email"
-                            placeholder={"Email"}
-                            onChange={this.handleChange}
-                        /></div>
-                        <br />
-                        <Button variant="primary" disabled={!this.validateForm() || !this.state.ebox} onClick={this.handleSubmit1}
-                            type="submit">I Forgot My Password :(</Button>
-                        <Collapse isOpen={this.state.collapse1}>
+            <div>
+                <ParticlesBg type="cobweb" bg={true} />
+                <CardDeck>
+                    <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%',opacity: 0.85 }} >
+                        <Button disabled={true} variant='primary' onClick={this.toggle} >Forget Password</Button>
+                        {/* <Collapse isOpen={this.state.collapse}> */}
+                        <Card.Body>
+                            {/* <Card.Title>Register</Card.Title> */}
                             <Label style={{ margin: 20 }}>
-                                Reset Key
+                                Email
               </Label>
                             <div class="ui focus input"><Input
-                                type="password"
-                                id="resetKey"
-                                placeholder={"Reset Key"}
+                                type="email"
+                                id="email"
+                                placeholder={"Email"}
                                 onChange={this.handleChange}
                             /></div>
                             <br />
-                            <Label style={{ margin: 20 }}>
-                                New Password
+                            <Button variant="primary" disabled={!this.validateForm() || !this.state.ebox} onClick={this.handleSubmit1}
+                                type="submit">I Forgot My Password :(</Button>
+                            <Collapse isOpen={this.state.collapse1}>
+                                <Label style={{ margin: 20 }}>
+                                    Reset Key
               </Label>
-                            <div class="ui focus input"><Input
-                                type="password"
-                                id="password"
-                                placeholder={"New Password"}
-                                onChange={this.handleChange}
-                            /></div>
-                            <br />
-                            <Label style={{ margin: 20 }}>
-                                Confirm Password
+                                <div class="ui focus input"><Input
+                                    type="password"
+                                    id="resetKey"
+                                    placeholder={"Reset Key"}
+                                    onChange={this.handleChange}
+                                /></div>
+                                <br />
+                                <Label style={{ margin: 20 }}>
+                                    New Password
               </Label>
-                            <div class="ui focus input"><Input
-                                type="password"
-                                id="confirmPassword"
-                                placeholder={"Confirm Password"}
-                                onChange={this.handleChange}
-                            /></div>
-                            <br />
-                            <Button variant="primary" disabled={!this.validateForm1()}
-                                onClick={this.handleSubmit2}
-                                type="submit">Reset My Password :(</Button>
-                        </Collapse>
-                    </Card.Body>
-                    {/* </Collapse> */}
-                </Card>
-            </CardDeck>
+                                <div class="ui focus input"><Input
+                                    type="password"
+                                    id="password"
+                                    placeholder={"New Password"}
+                                    onChange={this.handleChange}
+                                /></div>
+                                <br />
+                                <Label style={{ margin: 20 }}>
+                                    Confirm Password
+              </Label>
+                                <div class="ui focus input"><Input
+                                    type="password"
+                                    id="confirmPassword"
+                                    placeholder={"Confirm Password"}
+                                    onChange={this.handleChange}
+                                /></div>
+                                <br />
+                                <Button variant="primary" disabled={!this.validateForm1()}
+                                    onClick={this.handleSubmit2}
+                                    type="submit">Reset My Password :(</Button>
+                            </Collapse>
+                        </Card.Body>
+                        {/* </Collapse> */}
+                    </Card>
+                </CardDeck>
+            </div>
         );
     }
 }

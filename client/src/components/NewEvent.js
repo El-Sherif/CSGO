@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Navbar, Nav, Button, Alert, Form, FormControl, Col, Row, Dropdown, Badge, Accordion, Card, Spinner } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import ParticlesBg from "particles-bg";
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -400,6 +401,8 @@ export default class Homepage extends Component {
     return (
       (!this.authorized()) ? <Redirect to="/login" />
         : <div>
+        <ParticlesBg type="cobweb" bg={true} />
+
           {this.header()}
           {this.state.submitted && !this.state.submissionError
             ? <Redirect to="/" />

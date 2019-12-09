@@ -135,9 +135,9 @@ class Register extends Component {
     return (
 
       <div>
-      <ParticlesBg type="random" bg={true}/>
+      <ParticlesBg type="cobweb" bg={true}/>
       <CardDeck>
-        <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
+        <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%',opacity: 0.85 }} >
           <Button variant='primary' disabled={true} onClick={this.toggle} >Register</Button>
           {/* <Collapse isOpen={this.state.collapse}> */}
           <Card.Body>
