@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, Alert, Card, ListGroup, ListGroupItem, Button, CardColumns, Row, CardDeck, Modal } from 'react-bootstrap'
 import axios from 'axios'
+import { Label } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom"
+import StripeBtn from './stripeBtn'
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -157,20 +159,30 @@ export default class Homepage extends Component {
                           <Card className="col-md-2" border="primary"> <Card.Body>
                             <Card.Title>{val.type}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted" margin={20}>
-                              from:
-                            <br />
-                              {new Date(val.time.start_time).toLocaleDateString()}
-                              <br />
-                              {new Date(val.time.start_time).toLocaleTimeString()}
-                              <br />
-                              <br />
-                              to:
-                            <br />
-                              {new Date(val.time.end_time).toLocaleDateString()}
-                              <br />
-                              {new Date(val.time.end_time).toLocaleTimeString()}
+                            <Label style={{ marginTop: 20 }}>From : {new Date(val.time.start_time).toLocaleDateString()+" "+new Date(val.time.start_time).toLocaleTimeString()}</Label>
+                            {/* <br /> */}
+                              {/* {new Date(val.time.start_time).toLocaleDateString()} */}
+                              {/* <br /> */}
+                              {/* {new Date(val.time.start_time).toLocaleTimeString()} */}
+                              {/* <br />
+                              <br /> */}
+                              <Label style={{ marginTop: 20 }}>To : {new Date(val.time.end_time).toLocaleDateString()+" "+new Date(val.time.end_time).toLocaleTimeString()}</Label>
+                            {/* <br /> */}
+                              {/* {new Date(val.time.end_time).toLocaleDateString()} */}
+                              {/* <br /> */}
+                              {/* {new Date(val.time.end_time).toLocaleTimeString()} */}
                             </Card.Subtitle>
                             <Card.Text style={{ marginTop: 20 }}>{val.description}</Card.Text>
+                            {(!val.fees_Payed)
+                              ? <div>
+                                <Label style={{ marginTop: 20 }}>Total fees : {Math.round(val.Total_price/18)}€</Label>
+                                <br/>
+                                <br/>
+                                <StripeBtn EId={val._id} fees={val.Total_price} />
+                              </div>
+                              : <Label style={{ marginTop: 20 }}>Total fees are paid</Label>}
+                            {/* <StripeBtn EId={val._id} fees={val.Total_price}/> */}
+                            {/* <br/> */}
                             <Button
                               variant="danger"
                               style={{ marginTop: 20 }}
@@ -185,7 +197,6 @@ export default class Homepage extends Component {
                             >
                               Delete
                           </Button>
-
                           </Card.Body> </Card>)
                         )}
                       </CardDeck></Row>
@@ -242,14 +253,18 @@ export default class Homepage extends Component {
         <Modal
           show={this.state.deletePopup.show}
           onHide={this.closePopup}
-          size="sm"
+          // size="sm"
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
           <Modal.Header closeButton>
             <Modal.Title>Delete {this.state.deletePopup.type}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Are you want to delete the following event ?</Modal.Body>
+          <Modal.Body>Are you sure you want to delete the following event ?</Modal.Body>
+          <Label style={{ marginTop: 10 }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          NO REFUND IN CASE OF PAYMENT ^_^</Label>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.closePopup}>
               No

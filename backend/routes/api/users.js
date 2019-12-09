@@ -4,11 +4,15 @@ const router = express.Router()
 const nodemailer = require("nodemailer");
 const mongoose = require('mongoose')
 const User = require('../../models/User')
+const Email = require('../../config/keys').Email
+const Pass = require('../../config/keys').Pass
 var jwt_decode = require('jwt-decode');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const tokenKey = require('../../config/keys_dev').secretOrKey;
 const passport = require('passport');
+const SK = require('../../config/keys').SSK
+const stripe = require('stripe')(SK);
 require('../../config/passport')(passport);
 
 function makeid(length) {
@@ -38,8 +42,8 @@ router.post('/forgetMyPassword', async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'csgo.oza@gmail.com',
-        pass: 'kokowawa'
+        user: Email,
+        pass: Pass
       }
     });
 
@@ -298,8 +302,8 @@ router.post('/register', async (req, res) => {
     let transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'csgo.oza@gmail.com',
-        pass: 'kokowawa'
+        user: Email,
+        pass: Pass
       }
     });
 
@@ -382,5 +386,49 @@ router.post('/login', async (req, res) => {
 
 //     res.json({data: emails})
 // })
+router.post('/payfees', async (req, res) => {
 
+  try {
+    const { token, amount,EID } = req.body
+    const id = token.id
+    let data = await charge(id, amount)
+    // const charge = await charge({
+    //   amount: amount,
+    //   currency: 'usd',
+    //   payment_method_types: ['card'],
+    //   receipt_email: 'ahmedelsherif98j@gmail.com',
+    // });
+    let testAccount = await nodemailer.createTestAccount();
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      // host: 'smtp.gmail.com',
+      auth: {
+        user: Email,
+        pass: Pass
+      }
+    });
+    // send mail with defined transport object
+    // console.log(token)
+    let info = await transporter.sendMail({
+      from: '"Event Planner"', // sender address
+      to: token.email, // list of receivers
+      subject: "Payment Receipt", // Subject line
+      text: 'Your Payment Receipt : ' + data.receipt_url, // plain text body
+    });
+    await axios.put(`http://localhost:5000/api/events/${EID}`, { fees_Payed: true })
+    res.json({ data: data })
+  } catch (error) {
+				 
+    console.log(error)
+  }
+})
+const charge = (token, amount) => {
+  return stripe.charges.create({
+    amount: Math.round((amount * 100)/18) ,
+    currency: 'EUR',
+    source: token,
+    description: 'Paying Event Fees'
+  })
+}
 module.exports = router

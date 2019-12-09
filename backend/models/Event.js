@@ -27,6 +27,10 @@ const EventSchema = new Schema({
     }, Total_price: {
         type: Number,
         required: true
+    }, fees_Payed: {
+        type:Boolean,
+        required:true,
+        default:false
     }, place: {
         type: Schema.Types.ObjectId,
         ref: "Place",
