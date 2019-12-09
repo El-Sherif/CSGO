@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Label } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom"
 import StripeBtn from './stripeBtn'
+import ParticlesBg from "particles-bg";
 
 export default class Homepage extends Component {
   constructor(props) {
@@ -105,6 +106,8 @@ export default class Homepage extends Component {
   render() {
     return (
       <div>
+        <ParticlesBg type="cobweb" bg={true} />
+
         <header>
           <link
             rel="stylesheet"
@@ -130,6 +133,8 @@ export default class Homepage extends Component {
 
         {this.authorized()
           ? <div>
+            <ParticlesBg type="cobweb" bg={true} />
+
             <div>
               <Navbar bg="primary" variant="dark">
                 <Navbar.Brand href="/">Event Planner</Navbar.Brand>
@@ -156,18 +161,18 @@ export default class Homepage extends Component {
                     {this.splitInto(this.state.events, 5).map(arr =>
                       <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
                         {arr.map(val => (
-                          <Card className="col-md-2" border="primary"> <Card.Body>
+                          <Card className="col-md-2" border="primary" style={{ opacity: 0.85 }}> <Card.Body>
                             <Card.Title>{val.type}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted" margin={20}>
-                            <Label style={{ marginTop: 20 }}>From : {new Date(val.time.start_time).toLocaleDateString()+" "+new Date(val.time.start_time).toLocaleTimeString()}</Label>
-                            {/* <br /> */}
+                              <Label style={{ marginTop: 20 }}>From : {new Date(val.time.start_time).toLocaleDateString() + " " + new Date(val.time.start_time).toLocaleTimeString()}</Label>
+                              {/* <br /> */}
                               {/* {new Date(val.time.start_time).toLocaleDateString()} */}
                               {/* <br /> */}
                               {/* {new Date(val.time.start_time).toLocaleTimeString()} */}
                               {/* <br />
                               <br /> */}
-                              <Label style={{ marginTop: 20 }}>To : {new Date(val.time.end_time).toLocaleDateString()+" "+new Date(val.time.end_time).toLocaleTimeString()}</Label>
-                            {/* <br /> */}
+                              <Label style={{ marginTop: 20 }}>To : {new Date(val.time.end_time).toLocaleDateString() + " " + new Date(val.time.end_time).toLocaleTimeString()}</Label>
+                              {/* <br /> */}
                               {/* {new Date(val.time.end_time).toLocaleDateString()} */}
                               {/* <br /> */}
                               {/* {new Date(val.time.end_time).toLocaleTimeString()} */}
@@ -175,9 +180,9 @@ export default class Homepage extends Component {
                             <Card.Text style={{ marginTop: 20 }}>{val.description}</Card.Text>
                             {(!val.fees_Payed)
                               ? <div>
-                                <Label style={{ marginTop: 20 }}>Total fees : {Math.round(val.Total_price/18)}€</Label>
-                                <br/>
-                                <br/>
+                                <Label style={{ marginTop: 20 }}>Total fees : {Math.round(val.Total_price / 18)}€</Label>
+                                <br />
+                                <br />
                                 <StripeBtn EId={val._id} fees={val.Total_price} />
                               </div>
                               : <Label style={{ marginTop: 20 }}>Total fees are paid</Label>}
@@ -211,7 +216,7 @@ export default class Homepage extends Component {
                       {this.splitInto(this.state.places, 5).map(arr =>
                         <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
                           {arr.map(val => (
-                            <Card className="col-md-2" border="primary"> <Card.Body>
+                            <Card className="col-md-2" border="primary" style={{ opacity: 0.85 }}> <Card.Body>
                               <Card.Title>{val.name}</Card.Title>
                               <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating} EGP/hour</Card.Subtitle>
                               <Card.Subtitle className="mb-2 text-muted">{val.pricePerHour} EGP/hour</Card.Subtitle>
@@ -230,7 +235,7 @@ export default class Homepage extends Component {
                         {this.splitInto(this.state.caterings, 5).map(arr =>
                           <Row><CardDeck className="col-md-12" style={{ margin: 20 }}>
                             {arr.map(val => (
-                              <Card className="col-md-2" border="primary"> <Card.Body>
+                              <Card className="col-md-2" border="primary" style={{ opacity: 0.85 }}> <Card.Body>
                                 <Card.Title>{val.name}</Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating}</Card.Subtitle>
                                 {!val.menu || !val.menu[0]

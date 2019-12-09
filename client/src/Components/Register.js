@@ -5,6 +5,8 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Test from './Test'
 import { Collapse } from 'reactstrap'
+import ParticlesBg from "particles-bg";
+
 
 function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -28,7 +30,7 @@ class Register extends Component {
       gender: "",
       phone: "",
       age: "",
-      done: false
+      done: false,
     }
   }
   // state = {
@@ -72,6 +74,7 @@ class Register extends Component {
     return { msg: ret };
   }
   handleSubmit = async () => {
+
     if (document.getElementById("male").checked)
       await this.setState({ gender: 'Male' });
     else if (document.getElementById("female").checked)
@@ -81,6 +84,7 @@ class Register extends Component {
       return;
 
     }
+
     const body = {
       email: this.state.email, password: this.state.password
       , balance: 0, name: this.state.name, age: this.state.age, phone: this.state.phone, confirmPassword: this.state.confirmPassword, gender: 'Male'
@@ -120,7 +124,8 @@ class Register extends Component {
       document.getElementById("male").checked = false;
 
   }
-  render() {
+   render() {
+
     if (this.state.done) {
       return <Redirect to={{ pathname: "/login" }} />
     }
@@ -128,8 +133,11 @@ class Register extends Component {
       return <Redirect to={{ pathname: "/" }} />
     }
     return (
+
+      <div>
+      <ParticlesBg type="cobweb" bg={true}/>
       <CardDeck>
-        <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%' }} >
+        <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%',opacity: 0.85 }} >
           <Button variant='primary' disabled={true} onClick={this.toggle} >Register</Button>
           {/* <Collapse isOpen={this.state.collapse}> */}
           <Card.Body>
@@ -207,6 +215,8 @@ class Register extends Component {
           {/* </Collapse> */}
         </Card>
       </CardDeck>
+      </div>
+
     );
 
   }
