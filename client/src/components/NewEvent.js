@@ -188,11 +188,6 @@ export default class Homepage extends Component {
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="/">Event Planner</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          {/* <Nav className="mr-auto">
-            <Nav.Link href="localhost:5000/">Home</Nav.Link>
-          </Nav> */}
-          {/* <Button href="/newEvent" varient="warning"
-            style={{color: "yellow", borderColor: "yellow"}}>New Event</Button> */}
         </Navbar>
       </div>
     )
@@ -309,7 +304,6 @@ export default class Homepage extends Component {
                 this.newEvent.place = this.state.places.find(val => val.name === e.target.value).name
                 this.calculatePrice()
               }}>
-              {/* <option></option> */}
               {this.state.places
                 ? this.state.places.sort((a, b) => b.rating - a.rating).map((place, idx) =>
                   <option>{place.name}</option>)
@@ -320,7 +314,6 @@ export default class Homepage extends Component {
           <Form.Group className="col-md-4" style={{ margin: 20 }}>
             <Form.Label><b>Catering</b></Form.Label>
             <Form.Control required as="select" onChange={this.selectCatering}>
-              {/* <option></option> */}
               {this.state.caterings
                 ? this.state.caterings.sort((a, b) => b.rating - a.rating).map((catering, idx) =>
                   <option>{catering.name}</option>)

@@ -139,9 +139,7 @@ class Register extends Component {
       <CardDeck>
         <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%',opacity: 0.85 }} >
           <Button variant='primary' disabled={true} onClick={this.toggle} >Register</Button>
-          {/* <Collapse isOpen={this.state.collapse}> */}
           <Card.Body>
-            {/* <Card.Title>Register</Card.Title> */}
             <Label style={{ margin: 20 }}>
               Name
               </Label>
@@ -212,7 +210,6 @@ class Register extends Component {
             <Button style={{ margin: 20 }} variant="outline-primary" href="/login"
               type="submit">Login</Button>
           </Card.Body>
-          {/* </Collapse> */}
         </Card>
       </CardDeck>
       </div>

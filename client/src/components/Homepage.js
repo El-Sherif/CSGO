@@ -140,7 +140,6 @@ export default class Homepage extends Component {
                 <Navbar.Brand href="/">Event Planner</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="mr-auto">
-                  {/* <Nav.Link onClick={this.displayEvents}>Events</Nav.Link> */}
                   <Nav.Link onClick={this.displayPlaces}>Places</Nav.Link>
                   <Nav.Link onClick={this.displayCaterings}>Caterings</Nav.Link>
                   <Nav.Link href="/login" onClick={() => localStorage.removeItem('jwtToken')}>Logout</Nav.Link>
@@ -165,17 +164,7 @@ export default class Homepage extends Component {
                             <Card.Title>{val.type}</Card.Title>
                             <Card.Subtitle className="mb-2 text-muted" margin={20}>
                               <Label style={{ marginTop: 20 }}>From : {new Date(val.time.start_time).toLocaleDateString() + " " + new Date(val.time.start_time).toLocaleTimeString()}</Label>
-                              {/* <br /> */}
-                              {/* {new Date(val.time.start_time).toLocaleDateString()} */}
-                              {/* <br /> */}
-                              {/* {new Date(val.time.start_time).toLocaleTimeString()} */}
-                              {/* <br />
-                              <br /> */}
                               <Label style={{ marginTop: 20 }}>To : {new Date(val.time.end_time).toLocaleDateString() + " " + new Date(val.time.end_time).toLocaleTimeString()}</Label>
-                              {/* <br /> */}
-                              {/* {new Date(val.time.end_time).toLocaleDateString()} */}
-                              {/* <br /> */}
-                              {/* {new Date(val.time.end_time).toLocaleTimeString()} */}
                             </Card.Subtitle>
                             <Card.Text style={{ marginTop: 20 }}>{val.description}</Card.Text>
                             {(!val.fees_Payed)
@@ -186,8 +175,6 @@ export default class Homepage extends Component {
                                 <StripeBtn EId={val._id} fees={val.Total_price} />
                               </div>
                               : <Label style={{ marginTop: 20 }}>Total fees are paid</Label>}
-                            {/* <StripeBtn EId={val._id} fees={val.Total_price}/> */}
-                            {/* <br/> */}
                             <Button
                               variant="danger"
                               style={{ marginTop: 20 }}

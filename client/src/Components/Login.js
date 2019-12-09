@@ -58,9 +58,7 @@ class Login extends Component {
         <CardDeck>
           <Card border="primary" className="text-center col-md-8" style={{ marginLeft: '20%', opacity: 0.85 }} >
             <Button variant='primary' disabled={true} onClick={this.toggle} >Login</Button>
-            {/* <Card.Title>Login</Card.Title> */}
             <Card.Body>
-              {/* <Card.Title>Register</Card.Title> */}
               <Label style={{ margin: 20 }}>
                 Email
               </Label>
