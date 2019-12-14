@@ -43,10 +43,15 @@ Example for *keys.js*:
 ########################
 
 if (process.env.NODE_ENV === 'production') {
+
     module.exports = require('./keys_prod')
+    
 }
+
 else {
+
     module.exports = require('./keys_dev')
+    
 }
 
 ########################
@@ -56,11 +61,17 @@ Example for *keys_dev.js*:
 ########################
 
 module.exports = {
+
     mongoURI: *The Url extracted from atlas*,
+    
     secretOrKey: *Any Hashing Key*,
+    
     SSK: *The Sercret Key extracted from stipe*,
+    
     Email: *The Gmail used for sending emails*,
+    
     Pass: *The Gmail Password*
+    
 }
 
 ########################
@@ -70,10 +81,15 @@ Example for *keys_prod.js*:
 ########################
 
 module.exports = {
+
     *Mongo variable used in keys_dev.js*: process.env.MONGO_URI,
+    
     *Secret key variable used in keys_dev.js*:(process.env.STRIPE_SECRET_KEY),
+    
     *Email variable used in keys_dev.js*:(process.env.Email),
+    
     *Password variable used in keys_dev.js*:(process.env.Pass)
+    
 }
 
 ########################
@@ -83,21 +99,33 @@ Example for *passport.js*:
 ########################
 
 const JwtStrategy = require('passport-jwt').Strategy
+
  const ExtractJwt = require('passport-jwt').ExtractJwt
+ 
  const mongoose = require('mongoose')
+ 
  const User = mongoose.model('users')
+ 
  const tokenKey = require('./keys').secretOrKey
   
  let opts = {};
+ 
  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+ 
  opts.secretOrKey = tokenKey
 
  module.exports = passport => {
+ 
      passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
+     
         const currentUser = await User.findById(jwt_payload.id)
+        
         if(currentUser) return done(null,currentUser)
+        
         return done(null,false)
+        
      }))
+     
  }
  
 ########################
@@ -122,6 +150,8 @@ The Docker file for frontend runs commands **npm i** to install dependencies and
 #Backing Service
 
 MongoDb: NoSQL Database.
+
 Stripe: Online Payment method
+
 Nodemailer: Used for sending emails.
 
