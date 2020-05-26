@@ -1,6 +1,8 @@
 # Event Planner
 Create Events with specificed timing, location, catering, and pay for it online.
 
+![](https://i.ibb.co/G5jJ0JL/Event-Planner.png)
+
 # Features
 * Create a new Event and specify all the details through the web interface
 * Create a new location (through api)
@@ -18,7 +20,7 @@ Create Events with specificed timing, location, catering, and pay for it online.
   * Authentication (using JWT token)
   * Docker (Explained below)
 
-![](https://i.ibb.co/8BZ31y6/MERN.jpg "Logo Title Text 1")
+![](https://i.ibb.co/8BZ31y6/MERN.jpg "MERN Stack")
 # Docker
 
 * The Backend and Forntend are Dockerized and can be run through **docker-compose up** but you have to make sure that you have docker installed.
@@ -35,7 +37,7 @@ Create Events with specificed timing, location, catering, and pay for it online.
 
 * The Docker file for frontend runs commands **npm i** to install dependencies and **npm start** to run the front in *./client* directory
 
-# Furhter Development
-* Create frontend to create new caterings, places
-* Modify the event to model to allow users to be invited and for users to sign up
+# Further Development
+* Create frontend components to allow users to create new caterings and new places
+* Modify the event model to allow users to be invited to events and for users to sign up for events
 
