@@ -1,5 +1,5 @@
 {
-  "name": "Event Planner",
+  "name": "event-planner",
   "version": "1.0.0",
   "description": "Event Planning Website",
   "main": "index.js",
