@@ -5,8 +5,8 @@ Create Events with specificed timing, location, catering, and pay for it online.
 
 # Features
 * Create a new Event and specify all the details through the web interface
-* Create a new location (through api)
-* Create a new catering (through api)
+* Create a new location (through <code>/api/places</code>)
+* Create a new catering (through <code>/api/caterings</code>)
 * Pay for any event you created online
 
 # Getting Started
