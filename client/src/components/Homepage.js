@@ -105,8 +105,9 @@ export default class Homepage extends Component {
 
   render() {
     return (
+      
       <div>
-        <ParticlesBg type="cobweb" bg={true} />
+                <ParticlesBg type="cobweb" bg={true} />
 
         <header>
           <link
@@ -133,7 +134,6 @@ export default class Homepage extends Component {
 
         {this.authorized()
           ? <div>
-            <ParticlesBg type="cobweb" bg={true} />
 
             <div>
               <Navbar bg="primary" variant="dark">
@@ -205,7 +205,7 @@ export default class Homepage extends Component {
                           {arr.map(val => (
                             <Card className="col-md-2" border="primary" style={{ opacity: 0.85 }}> <Card.Body>
                               <Card.Title>{val.name}</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">Rating: {val.rating} stars</Card.Subtitle>
+                              <Card.Subtitle className="mb-2 text-muted">{val.rating} stars</Card.Subtitle>
                               <Card.Subtitle className="mb-2 text-muted">{val.pricePerHour} EGP/hour</Card.Subtitle>
                               <Card.Text>{val.location}</Card.Text>
                             </Card.Body> </Card>)

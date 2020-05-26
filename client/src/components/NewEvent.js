@@ -94,10 +94,8 @@ export default class Homepage extends Component {
       console.log(item.price)
       price += Math.max(0, Number(item.itemAmount) * item.price)
     })
-    console.log(price)
     this.state.price = price
     this.setState({ ...this.state })
-    console.log(this.state)
   }
 
   submit() {
