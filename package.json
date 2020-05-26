@@ -6,7 +6,11 @@
   "scripts": {
     "server": "nodemon backend/index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "installHome": "npm install",
+    "installClient": "npm install --prefix client",
+    "installBack": "npm install --prefix=~/backend",
+    "setup": "concurrently \"npm run installHome\" \"npm run installClient\" \"npm run installBack\""
   },
   "repository": {
     "type": "git",
