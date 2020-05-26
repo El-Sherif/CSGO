@@ -1,7 +1,7 @@
 # Event Planner
 Create Events with specificed timing, location, catering, and pay for it online.
 
-![](https://pasteboard.co/JadJ2mz.png)
+![](https://img.techpowerup.org/200526/event-planner.png)
 
 # Features
 * Create a new Event and specify all the details through the web interface
