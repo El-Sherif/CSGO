@@ -1,12 +1,13 @@
 # Event Planner
 Create Events with specificed timing, location, catering, and pay for it online.
 
-![](https://i.ibb.co/G5jJ0JL/Event-Planner.png)
+![](https://pasteboard.co/JadJ2mz.png)
 
 # Features
 * Create a new Event and specify all the details through the web interface
 * Create a new location (through api)
 * Create a new catering (through api)
+* Pay for any event you created online
 
 # Getting Started
 * Clone the repo
