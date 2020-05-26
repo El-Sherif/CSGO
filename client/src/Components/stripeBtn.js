@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "../../node_modules/axios";
 const publishableKey = "pk_test_ehyd5U1bJZcul9sAObB3D8fV00XSCtZpBn";
 export class stripeBtn extends Component {
-  constructor(props) {
-    super(props)
-  }
+  
 
   onToken = (token) => {
     const body = {
@@ -15,7 +13,6 @@ export class stripeBtn extends Component {
     }; axios
       .post("http://localhost:5000/api/users/payfees", body)
       .then(response => {
-        // console.log(111)
         console.log(response);
         alert("Payment Success");
         window.location.reload()

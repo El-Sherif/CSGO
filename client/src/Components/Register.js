@@ -7,7 +7,7 @@ import ParticlesBg from "particles-bg";
 
 
 function validateEmail(email) {
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
 function validateNumber(num) {
@@ -51,7 +51,7 @@ class Register extends Component {
       ret = "Password has to be atleast 8 characters long";
     else if (req.password !== req.confirmPassword)
       ret = "The repeated password doesn't match the first one"
-    else if (req.name.length == 0)
+    else if (req.name.length === 0)
       ret = "Please enter your name";
     else if (!validateNumber(req.phone))
       ret = "Phone Number contains only digits and cannot be empty";
@@ -78,7 +78,7 @@ class Register extends Component {
       , balance: 0, name: this.state.name, age: this.state.age, phone: this.state.phone, confirmPassword: this.state.confirmPassword, gender: 'Male'
     };
     let valid = this.validateRequest(body);
-    if (valid.msg == 'ok') {
+    if (valid.msg === 'ok') {
 
 
       try {
@@ -104,7 +104,7 @@ class Register extends Component {
   };
   handleGender(event) {
     let id = event.target.id;
-    if (id == 'male') {
+    if (id === 'male') {
       document.getElementById("female").checked = false;
     }
     else

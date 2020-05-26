@@ -5,7 +5,6 @@ import Login from './Components/Login';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Register from './Components/Register';
 import ForgetPassword from './Components/ForgetPassword'
-import ReactDOM from 'react-dom'
 import parseJwt from './helpers/decryptAuthToken'
 import './App.css';
 

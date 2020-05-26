@@ -1,0 +1,25 @@
+{
+  "name": "event-planner",
+  "version": "1.0.0",
+  "description": "Event Planner",
+  "main": "backend/index.js",
+  "scripts": {
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeyadKhattab/Event-Planner.git"
+  },
+  "author": "ZeyadKhattab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeyadKhattab/Event-Planner/issues"
+  },
+  "homepage": "https://github.com/ZeyadKhattab/Event-Planner#readme",
+  "dependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
+  }
+}
