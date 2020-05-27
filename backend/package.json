@@ -1,12 +1,12 @@
 {
-  "name": "Event Planner",
+  "name": "event-planner",
   "version": "1.0.0",
   "description": "Event Planning Website",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index.js",
-    "client": "npm start --prefix client",
+    "client": "npm start --prefix=../client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "El-Sherif",

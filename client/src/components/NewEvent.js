@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, Button, Alert, Form, FormControl, Col, Row, Dropdown, Badge, Accordion, Card, Spinner } from 'react-bootstrap'
+import { Navbar,  Button, Alert, Form,  Col, Row,  Badge, Accordion, Card, Spinner } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import ParticlesBg from "particles-bg";
@@ -94,10 +94,8 @@ export default class Homepage extends Component {
       console.log(item.price)
       price += Math.max(0, Number(item.itemAmount) * item.price)
     })
-    console.log(price)
     this.state.price = price
     this.setState({ ...this.state })
-    console.log(this.state)
   }
 
   submit() {
@@ -206,7 +204,7 @@ export default class Homepage extends Component {
                 this.setState({ ...this.state })
               }}
             />
-            {this.state.type === undefined || this.state.type != ""
+            {this.state.type === undefined || this.state.type !== ""
               ? <br />
               : <Badge variant="danger">
                 This field is required
@@ -222,7 +220,7 @@ export default class Homepage extends Component {
                 this.setState({ ...this.state })
               }}
             />
-            {this.state.description === undefined || this.state.description != ""
+            {this.state.description === undefined || this.state.description !== ""
               ? <br />
               : <Badge variant="danger">
                 This field is required
@@ -339,12 +337,7 @@ export default class Homepage extends Component {
                           this.state.cateringItems[index].itemAmount = e.target.value
                           this.setState({ ...this.state })
                           this.calculatePrice()
-                          // if (idx === -1)
-                          //   this.newEvent.catering.items.push([{
-                          //     itemName: item.item,
-                          //     itemAmount: e.target.value
-                          //   }])
-                          // else
+                         
                         }} />
                     </Col>
                   </Row>
@@ -399,7 +392,6 @@ export default class Homepage extends Component {
           {this.header()}
           {this.state.submitted && !this.state.submissionError
             ? <Redirect to="/" />
-            // ? <></>
 
             : this.state.loading
               ? <Spinner animation="border" variant="primary"
