@@ -1,157 +1,45 @@
-# CSGO
-Event Planner Application
+# Event Planner
+Create Events with specificed timing, location, catering, and pay for it online.
 
-#How to run ?
+![](https://img.techpowerup.org/200526/event-planner.png)
 
-To run the App, follow the following steps:
-1. change the directory to /backend
-2. run the command **node index**
-3. open another terminal
-4. change the directory to /client
-5. run the command **npm start**
+# Features
+* Create a new Event and specify all the details through the web interface
+* Create a new location (through <code>/api/places</code>)
+* Create a new catering (through <code>/api/caterings</code>)
+* Pay for any event you created online
 
-#Dependencies
+# Getting Started
+* Clone the repo
+* Run <code> npm install</code> once in the *backend* folder, and once in the *client* folder
+* Run <code> npm run dev</code> in the *backend* folder to run both the frontend and backend simultaneously 
 
-To install the dependencies please run **npm i** once backend folder and another in client folder
-Backend Dependencies:
+# About the app
+* This app is written using the MERN stack
+* The main components to the app are:
+  * Backend (Database Schema and routes)
+  * Frontend (React Components)
+  * Authentication (using JWT token)
+  * Docker (Explained below)
 
-1. Axios
-2. bycrypt
-3. passport
-4. express
-5. nodemailer
-6. stripe
-7. mongoose
+![](https://i.ibb.co/8BZ31y6/MERN.jpg "MERN Stack")
+# Docker
 
-Frontend Dependencies:
+* The Backend and Forntend are Dockerized and can be run through **docker-compose up** but you have to make sure that you have docker installed.
 
-1. Axios
-2. React libraries
-3. particles-bg
+* You can also build through **docker-compose build**
 
-#CONFIG
+* You can stop running **docker-compose down**
 
-1) create *config* folder
-2) create 4 files:
-  - keys.js
-  - keys_dev.js
-  - keys_prod.js
-  - passport.js
-  
-Example for *keys.js*:
+* The backend runs on port 5000 and the Frontend runs on port 3000
 
-########################
+* *docker-compose.yml* runs the two docker files(one for backend and another for frontend)
 
-if (process.env.NODE_ENV === 'production') {
+* The Docker file for backend runs commands **npm i** to install dependencies and **node index** to run the backend in *./Backend* directory
 
-    module.exports = require('./keys_prod')
-    
-}
+* The Docker file for frontend runs commands **npm i** to install dependencies and **npm start** to run the front in *./client* directory
 
-else {
-
-    module.exports = require('./keys_dev')
-    
-}
-
-########################
-  
-Example for *keys_dev.js*:
-
-########################
-
-module.exports = {
-
-    mongoURI: *The Url extracted from atlas*,
-    
-    secretOrKey: *Any Hashing Key*,
-    
-    SSK: *The Sercret Key extracted from stipe*,
-    
-    Email: *The Gmail used for sending emails*,
-    
-    Pass: *The Gmail Password*
-    
-}
-
-########################
-
-Example for *keys_prod.js*:
-
-########################
-
-module.exports = {
-
-    *Mongo variable used in keys_dev.js*: process.env.MONGO_URI,
-    
-    *Secret key variable used in keys_dev.js*:(process.env.STRIPE_SECRET_KEY),
-    
-    *Email variable used in keys_dev.js*:(process.env.Email),
-    
-    *Password variable used in keys_dev.js*:(process.env.Pass)
-    
-}
-
-########################
-
-Example for *passport.js*:
-
-########################
-
-const JwtStrategy = require('passport-jwt').Strategy
-
- const ExtractJwt = require('passport-jwt').ExtractJwt
- 
- const mongoose = require('mongoose')
- 
- const User = mongoose.model('users')
- 
- const tokenKey = require('./keys').secretOrKey
-  
- let opts = {};
- 
- opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
- 
- opts.secretOrKey = tokenKey
-
- module.exports = passport => {
- 
-     passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
-     
-        const currentUser = await User.findById(jwt_payload.id)
-        
-        if(currentUser) return done(null,currentUser)
-        
-        return done(null,false)
-        
-     }))
-     
- }
- 
-########################
-
-#Docker
-
-
-The Backend and Forntend are Dockerized and can be run through **docker-compose up** but you have to make sure that you have docker installed.
-
-You can also build through **docker-compose build**
-
-You can stop running **docker-compose down**
-
-The backend runs on port 5000 and the Frontend runs on port 3000
-
-*docker-compose.yml* runs the two docker files(one for backend and another for frontend)
-
-The Docker file for backend runs commands **npm i** to install dependencies and **node index** to run the backend in *./Backend* directory
-
-The Docker file for frontend runs commands **npm i** to install dependencies and **npm start** to run the front in *./client* directory
-
-#Backing Service
-
-MongoDb: NoSQL Database.
-
-Stripe: Online Payment method
-
-Nodemailer: Used for sending emails.
+# Further Development
+* Create frontend components to allow users to create new caterings and new places
+* Modify the event model to allow users to be invited to events and for users to sign up for events
 

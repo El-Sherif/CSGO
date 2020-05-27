@@ -3,7 +3,6 @@ import { Button, Card, CardDeck } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { Label, Input } from 'semantic-ui-react'
 import axios from "axios";
-import { Collapse } from 'reactstrap'
 import ParticlesBg from "particles-bg";
 
 class Login extends Component {

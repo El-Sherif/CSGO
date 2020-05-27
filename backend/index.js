@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req,res) => {
-        res.send(`<h1>CS GO</h1>`)
+        res.send(`<h1>Event Planner</h1>`)
 })
 app.use('/api/events', events)
 app.use('/api/places', places)
