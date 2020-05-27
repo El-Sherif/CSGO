@@ -11,8 +11,8 @@ Create Events with specificed timing, location, catering, and pay for it online.
 
 # Getting Started
 * Clone the repo
-* run <code> npm install</code> once in the **backend* folder, and once in the **client* folder
-* run <code> npm run dev</code> in the **backend* folder to run both the frontend and backend simultaneously 
+* Run <code> npm install</code> once in the *backend* folder, and once in the *client* folder
+* Run <code> npm run dev</code> in the *backend* folder to run both the frontend and backend simultaneously 
 
 # About the app
 * This app is written using the MERN stack
